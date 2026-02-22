@@ -1,0 +1,3 @@
+verify:
+  python:
+    version: "python3.12"
