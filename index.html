@@ -67,9 +67,34 @@
                 </p>
             </section>
 
+            <!-- Daily Donations Section -->
+            <section class="donations-section">
+                <h2>Daily Donations</h2>
+                <div class="donations-grid">
+                    <a href="https://form.jotform.com/260467960854165" class="donation-card" aria-label="Donate $10 daily">
+                        <div class="donation-content">
+                            <p class="donation-title">Daily Supporter</p>
+                            <p class="donation-amount">$10/day</p>
+                        </div>
+                    </a>
+                    <a href="https://form.jotform.com/260467960854165" class="donation-card" aria-label="Donate $25 daily">
+                        <div class="donation-content">
+                            <p class="donation-title">Daily Sustainer</p>
+                            <p class="donation-amount">$25/day</p>
+                        </div>
+                    </a>
+                    <a href="https://form.jotform.com/260467960854165" class="donation-card" aria-label="Donate $100 daily">
+                        <div class="donation-content">
+                            <p class="donation-title">Daily Champion</p>
+                            <p class="donation-amount">$100/day</p>
+                        </div>
+                    </a>
+                </div>
+            </section>
+
             <!-- Recurring Donations Section -->
             <section class="donations-section">
-                <h2>Monthly Recurring Donation</h2>
+                <h2>Monthly Donations</h2>
                 <div class="donations-grid">
                     <a href="https://form.jotform.com/260467960854165" class="donation-card" aria-label="Donate $10 monthly">
                         <div class="donation-content">
@@ -104,4 +129,54 @@
         </footer>
     </div>
 </body>
+    <script>
+        (function(){
+            // Placeholder Google Sheet ID - replace with your actual sheet ID
+            const SHEET_ID = 'PLACEHOLDER_SHEET_ID';
+            // Using the CSV export for the 'Total' sheet
+            const SHEET_CSV_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=csv&sheet=Total`;
+            const GOAL = 500000;
+            const REFRESH_MS = 30000; // 30 seconds
+
+            function parseNumber(value) {
+                if (!value && value !== 0) return 0;
+                const num = Number(String(value).replace(/[^0-9.-]+/g, ''));
+                return Number.isFinite(num) ? num : 0;
+            }
+
+            async function fetchTotal() {
+                try {
+                    const res = await fetch(SHEET_CSV_URL);
+                    if (!res.ok) throw new Error('Network response was not ok');
+                    const text = await res.text();
+                    const firstLine = text.trim().split(/\r?\n/)[0] || '';
+                    // crude CSV first-cell extraction (handles optional quotes)
+                    let cell = firstLine.split(',')[0] || '';
+                    cell = cell.replace(/^"|"$/g, '').trim();
+                    const total = parseNumber(cell);
+                    updateThermometer(total);
+                } catch (err) {
+                    console.warn('Failed to fetch sheet total:', err);
+                }
+            }
+
+            function updateThermometer(total) {
+                const amountEl = document.querySelector('.current-amount');
+                const fillEl = document.querySelector('.thermometer-fill');
+                const percentStat = document.querySelector('.progress-stats .stat-item:nth-child(2) .stat-number');
+                const goalLabel = document.querySelector('.goal-label');
+
+                const percent = Math.max(0, Math.min(100, (total / GOAL) * 100));
+
+                if (amountEl) amountEl.textContent = '$' + total.toLocaleString();
+                if (fillEl) fillEl.style.height = percent + '%';
+                if (percentStat) percentStat.textContent = Math.round(percent) + '%';
+                if (goalLabel) goalLabel.textContent = `raised of $${GOAL.toLocaleString()} goal`;
+            }
+
+            // Initial fetch and periodic refresh
+            fetchTotal();
+            setInterval(fetchTotal, REFRESH_MS);
+        })();
+    </script>
 </html>
