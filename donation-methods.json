@@ -1,0 +1,21 @@
+{
+  "alternative_methods": [
+    {
+      "name": "Venmo",
+      "icon": "images/venmo.png",
+      "link": "https://account.venmo.com/u/ISCJ-NJ"
+    },
+    {
+      "name": "Mohid",
+      "icon": "images/mohid.png",
+      "link": "https://us.mohid.co/nj/njrgn/iscj/masjid/online/donation"
+    },
+    {
+      "name": "Zelle",
+      "icon": "images/zelle.png",
+      "type": "modal",
+      "qr_code": "images/zelle_qr.png",
+      "qr_text": "Donate via Zelle to accounting@iscj.org"
+    }
+  ]
+}

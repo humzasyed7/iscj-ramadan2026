@@ -12,146 +12,82 @@
 
         <header class="header" role="banner">
             <div class="logo-container">
-                <h1 class="header-text" lang="en" dir="ltr" aria-label="Ramadan Donations">Ramadan Donations</h1>
+                <img src="images/iscj-white.png" alt="ISCJ Logo" class="header-logo">
             </div>
         </header>
 
-        <!-- Fundraising thermometer removed -->
-
         <!-- Main Content Area -->
         <main class="main-content">
-            <!-- Mission Statement -->
-            <section class="content-block mission-section">
-                <h2>Allah's Messenger (ﷺ) said:</h2>
-                <p class="text-block">
-                    "Take up good deeds only as much as you are able, for the best deeds are those done regularly even if they are few" (Musnad Ahmad 8600)
-                </p>
+            <div class="donation-flex-row">
+                <section class="content-block mission-section">
+                    <h2>Consistency is beloved to Allah</h2>
+                    <p class="text-block">
+                        "...The most beloved deed to Allah is the most consistent, even if it is little" (Sahih al-Bukhari 6464)
+                    </p>
+                </section>
+                <section class="commitment-panel" id="commitment-panel">
+                    <h2 class="commitment-title">Automate your Rewards</h2>
+                    <div class="commitment-toggle-row">
+                        <button class="commitment-toggle" data-freq="D">Daily</button>
+                        <button class="commitment-toggle" data-freq="W">Weekly</button>
+                        <button class="commitment-toggle active" data-freq="M">Monthly</button>
+                    </div>
+                    <div class="commitment-amounts-row" id="commitment-amounts">
+                        <!-- Dynamically populated -->
+                    </div>
+                    <input type="number" class="commitment-custom-input" id="commitment-custom-input" placeholder="$0.00" min="0" step="0.01" aria-label="Custom donation amount">
+                    <button class="commitment-checkout-btn" id="commitment-checkout" disabled>Select an amount</button>
+                </section>
+            </div>
+
+
+            <!-- Donut Charts Section -->
+            <section class="donations-section donut-charts-section">
+                <h2>Your Donations Make ISCJ Possible</h2>
+                <div class="donut-charts-container">
+                    <!-- Revenue Chart Only -->
+                    <div class="donut-chart-wrapper">
+                        <div class="donut-chart" id="revenue-chart">
+                            <svg viewBox="0 0 200 200" class="donut-svg">
+                                <g class="donut-segments" transform="rotate(-90 100 100)">
+                                    <!-- Segments will be rendered via JS -->
+                                </g>
+                            </svg>
+                            <div class="donut-center">
+                                <span class="donut-total">$1.6M</span>
+                                <span class="donut-label">Revenue</span>
+                            </div>
+                        </div>
+                        <div class="donut-legend" id="revenue-legend">
+                            <!-- Legend items rendered via JS -->
+                        </div>
+                    </div>
+                </div>
             </section>
 
-            <!-- Daily Donations Section -->
+            <!-- Other Ways to Donate Section -->
             <section class="donations-section">
-                <h2>Daily Donations</h2>
-                <div class="donations-grid">
-                    <a href="https://form.jotform.com/260467960854165" class="donation-card" data-amount="1" data-recurring="true" data-period="D" data-interval="1" aria-label="Donate $1 daily">
-                        <div class="donation-content">
-                            <p class="donation-title">Daily Supporter</p>
-                            <p class="donation-amount">$1/day</p>
-                        </div>
-                    </a>
-                    <a href="https://form.jotform.com/260467960854165" class="donation-card" data-amount="5" data-recurring="true" data-period="D" data-interval="1" aria-label="Donate $5 daily">
-                        <div class="donation-content">
-                            <p class="donation-title">Daily Sustainer</p>
-                            <p class="donation-amount">$5/day</p>
-                        </div>
-                    </a>
-                    <a href="https://form.jotform.com/260467960854165" class="donation-card" data-amount="8" data-recurring="true" data-period="D" data-interval="1" aria-label="Donate $8 daily">
-                        <div class="donation-content">
-                            <p class="donation-title">Daily Champion</p>
-                            <p class="donation-amount">$8/day</p>
-                        </div>
-                    </a>
+                <h2>Other Ways to Donate</h2>
+                <div class="alternative-methods-row" id="alternative-methods">
+                    <!-- Dynamically populated from donation-methods.json -->
                 </div>
-            </section>
-
-            <!-- Recurring Donations Section -->
-            <section class="donations-section">
-                <h2>Monthly Donations</h2>
-                <div class="donations-grid">
-                    <a href="https://form.jotform.com/260467960854165" class="donation-card" data-amount="10" data-recurring="true" data-period="M" data-interval="1" aria-label="Donate $10 monthly">
-                        <div class="donation-content">
-                            <p class="donation-title">Monthly Supporter</p>
-                            <p class="donation-amount">$10/month</p>
-                        </div>
-                    </a>
-                    <a href="https://form.jotform.com/260467960854165" class="donation-card" data-amount="25" data-recurring="true" data-period="M" data-interval="1" aria-label="Donate $25 monthly">
-                        <div class="donation-content">
-                            <p class="donation-title">Sustaining Friend</p>
-                            <p class="donation-amount">$25/month</p>
-                        </div>
-                    </a>
-                    <a href="https://form.jotform.com/260467960854165" class="donation-card" data-amount="50" data-recurring="true" data-period="M" data-interval="1" aria-label="Donate $50 monthly">
-                        <div class="donation-content">
-                            <p class="donation-title">Champion Circle</p>
-                            <p class="donation-amount">$50/month</p>
-                        </div>
-                    </a>
-                </div>
-            </section>
-
-            <!-- Consistency & Commitment Panel -->
-            <section class="commitment-panel" id="commitment-panel">
-                <h2 class="commitment-title">Consistency and Commitment</h2>
-                <div class="commitment-toggle-row">
-                    <button class="commitment-toggle" data-freq="D">Daily</button>
-                    <button class="commitment-toggle" data-freq="W">Weekly</button>
-                    <button class="commitment-toggle active" data-freq="M">Monthly</button>
-                </div>
-                <div class="commitment-amounts-row" id="commitment-amounts">
-                    <!-- Dynamically populated -->
-                </div>
-                <button class="commitment-checkout-btn" id="commitment-checkout" disabled>Select an amount</button>
             </section>
         </main>
 
-        <!-- Footer -->
-        <footer class="footer">
-            <p>&copy; 2026 Non-Profit Organization. All rights reserved.</p>
-            <div class="footer-links">
-                <a href="#privacy">Privacy Policy</a>
-                <a href="#terms">Terms of Service</a>
-                <a href="#contact">Contact Us</a>
+        <!-- Zelle QR Modal -->
+        <div id="zelle-modal" class="modal" style="display: none;">
+            <div class="modal-content">
+                <button class="modal-close" aria-label="Close modal">&times;</button>
+                <img src="images/zelle_qr.png" alt="Zelle QR Code" class="modal-qr-code">
+                <p class="modal-text">Donate via Zelle to accounting@iscj.org</p>
             </div>
-        </footer>
+        </div>
+
+        
     </div>
 </body>
     <script>
         (function(){
-            // Placeholder Google Sheet ID - replace with your actual sheet ID
-            const SHEET_ID = 'PLACEHOLDER_SHEET_ID';
-            // Using the CSV export for the 'Total' sheet
-            const SHEET_CSV_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=csv&sheet=Total`;
-            const GOAL = 500000;
-            const REFRESH_MS = 30000; // 30 seconds
-
-            function parseNumber(value) {
-                if (!value && value !== 0) return 0;
-                const num = Number(String(value).replace(/[^0-9.-]+/g, ''));
-                return Number.isFinite(num) ? num : 0;
-            }
-
-            async function fetchTotal() {
-                try {
-                    const res = await fetch(SHEET_CSV_URL);
-                    if (!res.ok) throw new Error('Network response was not ok');
-                    const text = await res.text();
-                    const firstLine = text.trim().split(/\r?\n/)[0] || '';
-                    // crude CSV first-cell extraction (handles optional quotes)
-                    let cell = firstLine.split(',')[0] || '';
-                    cell = cell.replace(/^"|"$/g, '').trim();
-                    const total = parseNumber(cell);
-                    updateThermometer(total);
-                } catch (err) {
-                    console.warn('Failed to fetch sheet total:', err);
-                }
-            }
-
-            function updateThermometer(total) {
-                const amountEl = document.querySelector('.current-amount');
-                const fillEl = document.querySelector('.thermometer-fill');
-                const percentStat = document.querySelector('.progress-stats .stat-item:nth-child(2) .stat-number');
-                const goalLabel = document.querySelector('.goal-label');
-
-                const percent = Math.max(0, Math.min(100, (total / GOAL) * 100));
-
-                if (amountEl) amountEl.textContent = '$' + total.toLocaleString();
-                if (fillEl) fillEl.style.height = percent + '%';
-                if (percentStat) percentStat.textContent = Math.round(percent) + '%';
-                if (goalLabel) goalLabel.textContent = `raised of $${GOAL.toLocaleString()} goal`;
-            }
-
-            // Initial fetch and periodic refresh
-            // PayPal integration: set your PayPal email or merchant ID below.
-            // If left as the placeholder, cards will keep their original links (JotForm).
             const PAYPAL_BUSINESS = 'iscjlit@iscj.org';
 
             function buildPaypalUrl(amount, itemName = 'Donation', recurring = false, interval = 1, period = 'M') {
@@ -181,29 +117,6 @@
                 return base + '?' + params.toString();
             }
 
-            // Attach click handlers to donation cards — opens PayPal in a new tab.
-            document.querySelectorAll('.donation-card').forEach(card => {
-                card.addEventListener('click', function (e) {
-                    const amount = card.dataset.amount;
-                    const recurring = card.dataset.recurring === 'true';
-                    const period = (card.dataset.period || 'M').toUpperCase();
-                    const interval = parseInt(card.dataset.interval || '1', 10) || 1;
-
-                    // If PayPal not configured, fall back to the anchor's href (JotForm)
-                    if (!amount || !PAYPAL_BUSINESS || PAYPAL_BUSINESS.includes('YOUR_PAYPAL')) {
-                        return; // allow default navigation
-                    }
-
-                    e.preventDefault();
-                    const title = card.querySelector('.donation-title')?.textContent?.trim() || 'Donation';
-                    const url = buildPaypalUrl(amount, title, recurring, interval, period);
-                    window.open(url, '_blank');
-                });
-            });
-
-            fetchTotal();
-            setInterval(fetchTotal, REFRESH_MS);
-
             // ── Consistency & Commitment Panel ──
             (function commitmentPanel() {
                 const presets = {
@@ -212,7 +125,6 @@
                     M: [10, 25, 50]
                 };
                 const freqLabels = { D: 'Daily', W: 'Weekly', M: 'Monthly' };
-                const freqSuffix = { D: '/day', W: '/week', M: '/month' };
 
                 let selectedFreq = 'M';
                 let selectedAmt = null;
@@ -220,6 +132,7 @@
                 const toggleBtns = document.querySelectorAll('.commitment-toggle');
                 const amountsRow = document.getElementById('commitment-amounts');
                 const checkoutBtn = document.getElementById('commitment-checkout');
+                const customInput = document.getElementById('commitment-custom-input');
 
                 function renderAmounts(freq) {
                     amountsRow.innerHTML = '';
@@ -230,6 +143,7 @@
                         btn.dataset.amount = amt;
                         btn.addEventListener('click', () => {
                             selectedAmt = amt;
+                            customInput.value = '';
                             document.querySelectorAll('.commitment-amount-btn').forEach(b => b.classList.remove('active'));
                             btn.classList.add('active');
                             checkoutBtn.disabled = false;
@@ -245,22 +159,221 @@
                         btn.classList.add('active');
                         selectedFreq = btn.dataset.freq;
                         selectedAmt = null;
+                        customInput.value = '';
                         checkoutBtn.disabled = true;
                         checkoutBtn.textContent = 'Select an amount';
                         renderAmounts(selectedFreq);
                     });
                 });
 
+                customInput.addEventListener('focus', () => {
+                    document.querySelectorAll('.commitment-amount-btn').forEach(b => b.classList.remove('active'));
+                });
+
+                customInput.addEventListener('input', () => {
+                    const value = customInput.value.trim();
+                    if (value && !isNaN(value) && parseFloat(value) > 0) {
+                        selectedAmt = null;
+                        document.querySelectorAll('.commitment-amount-btn').forEach(b => b.classList.remove('active'));
+                        checkoutBtn.disabled = false;
+                        checkoutBtn.textContent = 'Checkout';
+                    } else {
+                        if (selectedAmt === null) {
+                            checkoutBtn.disabled = true;
+                            checkoutBtn.textContent = 'Select an amount';
+                        }
+                    }
+                });
+
                 checkoutBtn.addEventListener('click', () => {
-                    if (!selectedAmt) return;
+                    const customValue = customInput.value.trim();
+                    let amount = selectedAmt;
+                    
+                    if (customValue && !isNaN(customValue) && parseFloat(customValue) > 0) {
+                        amount = parseFloat(customValue);
+                    }
+                    
+                    if (!amount) return;
                     const itemName = 'Ramadan ' + freqLabels[selectedFreq] + ' Donation';
-                    const url = buildPaypalUrl(selectedAmt, itemName, true, 1, selectedFreq);
+                    const url = buildPaypalUrl(amount, itemName, true, 1, selectedFreq);
                     window.open(url, '_blank');
                 });
 
                 // Initial render (Monthly)
                 renderAmounts(selectedFreq);
             })();
+
+            // ── Alternative Methods Section ──
+            (async function loadAlternativeMethods() {
+                try {
+                    const response = await fetch('donation-methods.json');
+                    if (!response.ok) throw new Error('Failed to load donation methods');
+                    const data = await response.json();
+                    const container = document.getElementById('alternative-methods');
+                    const zelleModal = document.getElementById('zelle-modal');
+                    const modalClose = document.querySelector('.modal-close');
+                    
+                    if (data.alternative_methods && Array.isArray(data.alternative_methods)) {
+                        data.alternative_methods.forEach(method => {
+                            const img = document.createElement('img');
+                            img.src = method.icon;
+                            img.alt = method.name;
+                            
+                            if (method.type === 'modal') {
+                                // Create button for modal type
+                                const button = document.createElement('button');
+                                button.className = 'alternative-method-link';
+                                button.title = method.name;
+                                button.setAttribute('aria-label', `Donate via ${method.name}`);
+                                
+                                button.appendChild(img);
+                                button.addEventListener('click', () => {
+                                    zelleModal.style.display = 'flex';
+                                });
+                                container.appendChild(button);
+                            } else {
+                                // Create link for regular methods
+                                const link = document.createElement('a');
+                                link.href = method.link;
+                                link.target = '_blank';
+                                link.rel = 'noopener noreferrer';
+                                link.className = 'alternative-method-link';
+                                link.title = method.name;
+                                link.setAttribute('aria-label', `Donate via ${method.name}`);
+                                
+                                link.appendChild(img);
+                                container.appendChild(link);
+                            }
+                        });
+                    }
+                    
+                    // Modal close handlers
+                    modalClose.addEventListener('click', () => {
+                        zelleModal.style.display = 'none';
+                    });
+                    
+                    zelleModal.addEventListener('click', (e) => {
+                        if (e.target === zelleModal) {
+                            zelleModal.style.display = 'none';
+                        }
+                    });
+                    
+                } catch (err) {
+                    console.warn('Failed to load alternative donation methods:', err);
+                }
+            })();
+
+            // ── Donut Charts Animation ──
+            (function initDonutCharts() {
+                const revenueData = [
+                    { name: 'Donations', percent: 47.6, color: '#D4AF37' },
+                    { name: 'Membership', percent: 21.4, color: '#1E3A8A' },
+                    { name: 'Tuition', percent: 20.6, color: '#3B5998' },
+                    { name: 'Income', percent: 10.3, color: '#5B7BC5' }
+                ];
+
+                function createDonutChart(chartId, legendId, data) {
+                    const chartEl = document.getElementById(chartId);
+                    const legendEl = document.getElementById(legendId);
+                    if (!chartEl || !legendEl) return;
+
+                    const svg = chartEl.querySelector('.donut-segments');
+                    const radius = 70;
+                    const circumference = 2 * Math.PI * radius;
+                    
+                    let currentOffset = 0;
+                    const segments = [];
+
+                    // Sort data by percentage descending for better visual
+                    const sortedData = [...data].sort((a, b) => b.percent - a.percent);
+
+                    sortedData.forEach((item, index) => {
+                        const segmentLength = (item.percent / 100) * circumference;
+                        const dashArray = `${segmentLength} ${circumference - segmentLength}`;
+                        
+                        const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+                        circle.setAttribute('cx', '100');
+                        circle.setAttribute('cy', '100');
+                        circle.setAttribute('r', radius);
+                        circle.setAttribute('class', 'donut-segment');
+                        circle.setAttribute('stroke', item.color);
+                        circle.setAttribute('data-index', index);
+                        circle.style.strokeDasharray = `0 ${circumference}`;
+                        circle.style.strokeDashoffset = -currentOffset;
+                        circle.style.setProperty('--circumference', circumference);
+                        circle.style.setProperty('--final-dasharray', dashArray);
+                        
+                        segments.push({
+                            element: circle,
+                            targetDasharray: dashArray,
+                            offset: currentOffset,
+                            item: item
+                        });
+
+                        svg.appendChild(circle);
+                        currentOffset += segmentLength;
+
+                        // Create legend item
+                        const legendItem = document.createElement('div');
+                        legendItem.className = 'legend-item';
+                        legendItem.dataset.index = index;
+                        legendItem.innerHTML = `
+                            <span class="legend-color" style="background-color: ${item.color}"></span>
+                            <span class="legend-text">
+                                <span class="legend-name">${item.name}</span>
+                                <span class="legend-percent">${item.percent}%</span>
+                            </span>
+                        `;
+                        legendEl.appendChild(legendItem);
+
+                        // Hover interactions
+                        const highlight = () => {
+                            segments.forEach((s, i) => {
+                                s.element.classList.toggle('highlighted', i === index);
+                            });
+                            legendEl.querySelectorAll('.legend-item').forEach((li, i) => {
+                                li.classList.toggle('highlighted', i === index);
+                            });
+                        };
+
+                        const unhighlight = () => {
+                            segments.forEach(s => s.element.classList.remove('highlighted'));
+                            legendEl.querySelectorAll('.legend-item').forEach(li => li.classList.remove('highlighted'));
+                        };
+
+                        circle.addEventListener('mouseenter', highlight);
+                        circle.addEventListener('mouseleave', unhighlight);
+                        legendItem.addEventListener('mouseenter', highlight);
+                        legendItem.addEventListener('mouseleave', unhighlight);
+                    });
+
+                    // Animate segments on load with staggered timing
+                    const animateSegments = () => {
+                        segments.forEach((seg, index) => {
+                            setTimeout(() => {
+                                seg.element.style.transition = 'stroke-dasharray 0.8s cubic-bezier(0.4, 0, 0.2, 1)';
+                                seg.element.style.strokeDasharray = seg.targetDasharray;
+                            }, index * 150);
+                        });
+                    };
+
+                    // Use Intersection Observer to trigger animation when visible
+                    const observer = new IntersectionObserver((entries) => {
+                        entries.forEach(entry => {
+                            if (entry.isIntersecting) {
+                                animateSegments();
+                                observer.unobserve(entry.target);
+                            }
+                        });
+                    }, { threshold: 0.3 });
+
+                    observer.observe(chartEl);
+                }
+
+                // Initialize only the revenue chart
+                createDonutChart('revenue-chart', 'revenue-legend', revenueData);
+            })();
+
         })();
     </script>
 </html>
