@@ -12,56 +12,11 @@
 
         <header class="header" role="banner">
             <div class="logo-container">
-                <img src="images/iscj transparent logo.PNG" alt="ISCJ Logo" class="logo">
+                <h1 class="header-text" lang="en" dir="ltr" aria-label="Ramadan Donations">Ramadan Donations</h1>
             </div>
         </header>
 
-        <!-- Fundraising Progress Thermometer -->
-        <section class="thermometer-section">
-            <div class="thermometer-container">
-                <h2 class="thermometer-title">Ramadan Donations</h2>
-                <div class="goal-info">
-                    <p class="current-amount">$325,000</p>
-                    <p class="goal-label">raised of $500,000 goal</p>
-                </div>
-                
-                <div class="thermometer">
-                    <div class="thermometer-track">
-                        <div class="thermometer-fill" style="height: 65%;"></div>
-                        <div class="checkpoint" style="bottom: 20%;" data-amount="$100,000">
-                            <span class="checkpoint-label">$100K</span>
-                        </div>
-                        <div class="checkpoint" style="bottom: 40%;" data-amount="$200,000">
-                            <span class="checkpoint-label">$200K</span>
-                        </div>
-                        <div class="checkpoint" style="bottom: 60%;" data-amount="$300,000">
-                            <span class="checkpoint-label">$300K</span>
-                        </div>
-                        <div class="checkpoint" style="bottom: 80%;" data-amount="$400,000">
-                            <span class="checkpoint-label">$400K</span>
-                        </div>
-                        <div class="checkpoint goal-checkpoint" style="bottom: 100%;" data-amount="$500,000">
-                            <span class="checkpoint-label">$500K Goal</span>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="progress-stats">
-                    <div class="stat-item">
-                        <span class="stat-number">650+</span>
-                        <span class="stat-label">Donors</span>
-                    </div>
-                    <div class="stat-item">
-                        <span class="stat-number">65%</span>
-                        <span class="stat-label">Complete</span>
-                    </div>
-                    <div class="stat-item">
-                        <span class="stat-number">14</span>
-                        <span class="stat-label">Days Left</span>
-                    </div>
-                </div>
-            </div>
-        </section>
+        <!-- Fundraising thermometer removed -->
 
         <!-- Main Content Area -->
         <main class="main-content">
@@ -121,6 +76,20 @@
                         </div>
                     </a>
                 </div>
+            </section>
+
+            <!-- Consistency & Commitment Panel -->
+            <section class="commitment-panel" id="commitment-panel">
+                <h2 class="commitment-title">Consistency and Commitment</h2>
+                <div class="commitment-toggle-row">
+                    <button class="commitment-toggle" data-freq="D">Daily</button>
+                    <button class="commitment-toggle" data-freq="W">Weekly</button>
+                    <button class="commitment-toggle active" data-freq="M">Monthly</button>
+                </div>
+                <div class="commitment-amounts-row" id="commitment-amounts">
+                    <!-- Dynamically populated -->
+                </div>
+                <button class="commitment-checkout-btn" id="commitment-checkout" disabled>Select an amount</button>
             </section>
         </main>
 
@@ -234,6 +203,64 @@
 
             fetchTotal();
             setInterval(fetchTotal, REFRESH_MS);
+
+            // ── Consistency & Commitment Panel ──
+            (function commitmentPanel() {
+                const presets = {
+                    D: [1, 5, 8],
+                    W: [5, 15, 25],
+                    M: [10, 25, 50]
+                };
+                const freqLabels = { D: 'Daily', W: 'Weekly', M: 'Monthly' };
+                const freqSuffix = { D: '/day', W: '/week', M: '/month' };
+
+                let selectedFreq = 'M';
+                let selectedAmt = null;
+
+                const toggleBtns = document.querySelectorAll('.commitment-toggle');
+                const amountsRow = document.getElementById('commitment-amounts');
+                const checkoutBtn = document.getElementById('commitment-checkout');
+
+                function renderAmounts(freq) {
+                    amountsRow.innerHTML = '';
+                    presets[freq].forEach(amt => {
+                        const btn = document.createElement('button');
+                        btn.className = 'commitment-amount-btn';
+                        btn.textContent = '$' + amt;
+                        btn.dataset.amount = amt;
+                        btn.addEventListener('click', () => {
+                            selectedAmt = amt;
+                            document.querySelectorAll('.commitment-amount-btn').forEach(b => b.classList.remove('active'));
+                            btn.classList.add('active');
+                            checkoutBtn.disabled = false;
+                            checkoutBtn.textContent = 'Checkout';
+                        });
+                        amountsRow.appendChild(btn);
+                    });
+                }
+
+                toggleBtns.forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        toggleBtns.forEach(b => b.classList.remove('active'));
+                        btn.classList.add('active');
+                        selectedFreq = btn.dataset.freq;
+                        selectedAmt = null;
+                        checkoutBtn.disabled = true;
+                        checkoutBtn.textContent = 'Select an amount';
+                        renderAmounts(selectedFreq);
+                    });
+                });
+
+                checkoutBtn.addEventListener('click', () => {
+                    if (!selectedAmt) return;
+                    const itemName = 'Ramadan ' + freqLabels[selectedFreq] + ' Donation';
+                    const url = buildPaypalUrl(selectedAmt, itemName, true, 1, selectedFreq);
+                    window.open(url, '_blank');
+                });
+
+                // Initial render (Monthly)
+                renderAmounts(selectedFreq);
+            })();
         })();
     </script>
 </html>
