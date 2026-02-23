@@ -77,22 +77,22 @@
             <section class="donations-section">
                 <h2>Daily Donations</h2>
                 <div class="donations-grid">
-                    <a href="https://form.jotform.com/260467960854165" class="donation-card" aria-label="Donate $10 daily">
+                    <a href="https://form.jotform.com/260467960854165" class="donation-card" data-amount="1" data-recurring="true" data-period="D" data-interval="1" aria-label="Donate $1 daily">
                         <div class="donation-content">
                             <p class="donation-title">Daily Supporter</p>
                             <p class="donation-amount">$1/day</p>
                         </div>
                     </a>
-                    <a href="https://form.jotform.com/260467960854165" class="donation-card" aria-label="Donate $25 daily">
+                    <a href="https://form.jotform.com/260467960854165" class="donation-card" data-amount="5" data-recurring="true" data-period="D" data-interval="1" aria-label="Donate $5 daily">
                         <div class="donation-content">
                             <p class="donation-title">Daily Sustainer</p>
                             <p class="donation-amount">$5/day</p>
                         </div>
                     </a>
-                    <a href="https://form.jotform.com/260467960854165" class="donation-card" aria-label="Donate $100 daily">
+                    <a href="https://form.jotform.com/260467960854165" class="donation-card" data-amount="8" data-recurring="true" data-period="D" data-interval="1" aria-label="Donate $8 daily">
                         <div class="donation-content">
                             <p class="donation-title">Daily Champion</p>
-                            <p class="donation-amount">$10/day</p>
+                            <p class="donation-amount">$8/day</p>
                         </div>
                     </a>
                 </div>
@@ -102,19 +102,19 @@
             <section class="donations-section">
                 <h2>Monthly Donations</h2>
                 <div class="donations-grid">
-                    <a href="https://form.jotform.com/260467960854165" class="donation-card" aria-label="Donate $10 monthly">
+                    <a href="https://form.jotform.com/260467960854165" class="donation-card" data-amount="10" data-recurring="true" data-period="M" data-interval="1" aria-label="Donate $10 monthly">
                         <div class="donation-content">
                             <p class="donation-title">Monthly Supporter</p>
                             <p class="donation-amount">$10/month</p>
                         </div>
                     </a>
-                    <a href="https://form.jotform.com/260467960854165" class="donation-card" aria-label="Donate $25 monthly">
+                    <a href="https://form.jotform.com/260467960854165" class="donation-card" data-amount="25" data-recurring="true" data-period="M" data-interval="1" aria-label="Donate $25 monthly">
                         <div class="donation-content">
                             <p class="donation-title">Sustaining Friend</p>
                             <p class="donation-amount">$25/month</p>
                         </div>
                     </a>
-                    <a href="https://form.jotform.com/260467960854165" class="donation-card" aria-label="Donate $100 monthly">
+                    <a href="https://form.jotform.com/260467960854165" class="donation-card" data-amount="50" data-recurring="true" data-period="M" data-interval="1" aria-label="Donate $50 monthly">
                         <div class="donation-content">
                             <p class="donation-title">Champion Circle</p>
                             <p class="donation-amount">$50/month</p>
@@ -181,6 +181,57 @@
             }
 
             // Initial fetch and periodic refresh
+            // PayPal integration: set your PayPal email or merchant ID below.
+            // If left as the placeholder, cards will keep their original links (JotForm).
+            const PAYPAL_BUSINESS = 'iscjlit@iscj.org';
+
+            function buildPaypalUrl(amount, itemName = 'Donation', recurring = false, interval = 1, period = 'M') {
+                const base = 'https://www.paypal.com/cgi-bin/webscr';
+                const params = new URLSearchParams();
+
+                if (recurring) {
+                    // Subscriptions: use _xclick-subscriptions with a3, p3, t3
+                    params.set('cmd', '_xclick-subscriptions');
+                    params.set('business', PAYPAL_BUSINESS);
+                    params.set('a3', Number(amount).toFixed(2));
+                    params.set('p3', String(interval));
+                    params.set('t3', period); // D,W,M,Y
+                    params.set('src', '1'); // make payments recur
+                    params.set('sra', '1'); // reattempt on failure
+                    params.set('item_name', itemName);
+                    params.set('currency_code', 'USD');
+                } else {
+                    // One-time donation
+                    params.set('cmd', '_donations');
+                    params.set('business', PAYPAL_BUSINESS);
+                    params.set('amount', Number(amount).toFixed(2));
+                    params.set('currency_code', 'USD');
+                    params.set('item_name', itemName);
+                }
+
+                return base + '?' + params.toString();
+            }
+
+            // Attach click handlers to donation cards — opens PayPal in a new tab.
+            document.querySelectorAll('.donation-card').forEach(card => {
+                card.addEventListener('click', function (e) {
+                    const amount = card.dataset.amount;
+                    const recurring = card.dataset.recurring === 'true';
+                    const period = (card.dataset.period || 'M').toUpperCase();
+                    const interval = parseInt(card.dataset.interval || '1', 10) || 1;
+
+                    // If PayPal not configured, fall back to the anchor's href (JotForm)
+                    if (!amount || !PAYPAL_BUSINESS || PAYPAL_BUSINESS.includes('YOUR_PAYPAL')) {
+                        return; // allow default navigation
+                    }
+
+                    e.preventDefault();
+                    const title = card.querySelector('.donation-title')?.textContent?.trim() || 'Donation';
+                    const url = buildPaypalUrl(amount, title, recurring, interval, period);
+                    window.open(url, '_blank');
+                });
+            });
+
             fetchTotal();
             setInterval(fetchTotal, REFRESH_MS);
         })();
