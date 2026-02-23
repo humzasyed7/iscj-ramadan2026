@@ -347,9 +347,9 @@ body {
 .content-block {
   margin-bottom: 4rem;
   padding: 2rem;
-  background-color: #ffffff;
-  border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  background-color: transparent;
+  border-radius: 0;
+  box-shadow: none;
 }
 
 .content-block h2 {
@@ -428,10 +428,11 @@ body {
 .donations-section {
   margin-bottom: 4rem;
   padding: 3rem 2rem;
-  background: linear-gradient(to bottom, rgba(30, 58, 138, 0.02) 0%, rgba(212, 175, 55, 0.02) 100%);
-  border-radius: 16px;
-  border-top: 1px solid rgba(30, 58, 138, 0.1);
-  border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+  background: transparent;
+  border-radius: 0;
+  border-top: none;
+  border-bottom: none;
+  box-shadow: none;
   opacity: 0;
   animation: fadeInUp 0.8s ease-out forwards;
 }
