@@ -347,7 +347,8 @@ body {
 .content-block {
   margin-bottom: 4rem;
   padding: 2rem;
-  background-color: transparent;
+  background: none;
+  border: none;
   border-radius: 0;
   box-shadow: none;
 }
@@ -428,11 +429,9 @@ body {
 .donations-section {
   margin-bottom: 4rem;
   padding: 3rem 2rem;
-  background: transparent;
+  background: none;
   border-radius: 0;
-  border-top: none;
-  border-bottom: none;
-  box-shadow: none;
+  border: none;
   opacity: 0;
   animation: fadeInUp 0.8s ease-out forwards;
 }
@@ -574,6 +573,17 @@ body {
     6px 6px 18px rgba(30, 58, 138, 0.12),
     -4px -4px 12px rgba(255, 255, 255, 0.9),
     inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+}
+.commitment-panel {
+  margin: 2rem 0 4rem;
+  padding: 3.5rem 3rem;
+  background: linear-gradient(145deg, #ffffff 0%, #f4f6fb 100%);
+  border-radius: 18px;
+  border: 2px solid #d4af37;
+  box-shadow: 0 8px 32px rgba(212, 175, 55, 0.15), 0 1px 0 rgba(255,255,255,0.8) inset;
   text-align: center;
   display: flex;
   flex-direction: column;
@@ -804,45 +814,6 @@ body {
 .commitment-checkout-btn:focus-visible {
   outline: 3px solid #1E3A8A;
   outline-offset: 3px;
-}
-
-/* ===========================
-   Footer
-   =========================== */
-
- .footer {
-  background: linear-gradient(90deg, #021728 0%, #0b3a72 100%);
-  color: white;
-  padding: 2rem;
-  text-align: center;
-  margin-top: auto;
-}
-
-.footer p {
-  margin-bottom: 1rem;
-}
-
-.footer-links {
-  display: flex;
-  justify-content: center;
-  gap: 2rem;
-  flex-wrap: wrap;
-}
-
-.footer-links a {
-  color: #ecf0f1;
-  text-decoration: none;
-  transition: color 0.2s;
-}
-
-.footer-links a:hover {
-  color: #00a896;
-}
-
-.footer-links a:focus {
-  outline: 2px solid #D4AF37;
-  outline-offset: 2px;
-  border-radius: 2px;
 }
 
 /* ===========================
@@ -1297,10 +1268,6 @@ body {
     font-size: 1.1rem;
   }
 }
-
-/* ===========================
-   Accessibility Improvements
-   =========================== */
 
 /* ===========================
    Donut Charts Section
