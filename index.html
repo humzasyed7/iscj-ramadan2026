@@ -30,9 +30,9 @@
                 <section class="commitment-panel" id="commitment-panel">
                     <h2 class="commitment-title">Automate your Rewards</h2>
                     <div class="commitment-toggle-row">
-                        <button class="commitment-toggle" data-freq="D">Daily</button>
+                        <button class="commitment-toggle active" data-freq="D">Daily</button>
                         <button class="commitment-toggle" data-freq="W">Weekly</button>
-                        <button class="commitment-toggle active" data-freq="M">Monthly</button>
+                        <button class="commitment-toggle" data-freq="M">Monthly</button>
                     </div>
                     <div class="commitment-amounts-row" id="commitment-amounts">
                         <!-- Dynamically populated -->
@@ -128,7 +128,7 @@
                 };
                 const freqLabels = { D: 'Daily', W: 'Weekly', M: 'Monthly' };
 
-                let selectedFreq = 'M';
+                let selectedFreq = 'D';
                 let selectedAmt = null;
 
                 const toggleBtns = document.querySelectorAll('.commitment-toggle');
@@ -201,7 +201,7 @@
                     window.open(url, '_blank');
                 });
 
-                // Initial render (Monthly)
+                // Initial render (Daily)
                 renderAmounts(selectedFreq);
             })();
 
